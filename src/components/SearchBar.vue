@@ -7,7 +7,6 @@
 <script>
 export default {
   name: "SearchBar",
-  data: {},
   methods: {
     onInput: function(event) {
       console.log(event.target.value);
