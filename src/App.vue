@@ -1,19 +1,32 @@
 <template lang="html">
-  <div>
+  <div class="container">
     <SearchBar @termChange="onTermChange"></SearchBar>
+    <VideoDetail v-bind:video="selectedVideo"></VideoDetail>
 
+    <VideoList
+      @videoSelect="onVideoSelect"
+      :videos="videos">
+    </VideoList>
   </div>
 </template>
 
 <script>
-import SearchBar from "./components/SearchBar";
 import axios from "axios";
+
+import SearchBar from "./components/SearchBar";
+import VideoList from "./components/VideoList";
+import VideoDetail from "./components/VideoDetail";
 
 const API_KEY = "AIzaSyCjdYfzlj9Z3Ye4N1x9iO1dGGT1ChNxHak";
 export default {
   name: "App",
   components: {
-    SearchBar: SearchBar
+    SearchBar: SearchBar,
+    VideoList: VideoList,
+    VideoDetail: VideoDetail
+  },
+  data: function() {
+    return { videos: [], selectedVideo: null };
   },
   methods: {
     onTermChange(searchTerm) {
@@ -24,7 +37,13 @@ export default {
           part: "snippet",
           q: searchTerm
         }
-      }).then(response => console.log(response));
+      }).then(response => {
+        this.videos = response.data.items;
+      });
+    },
+    onVideoSelect(video) {
+      console.log(video);
+      this.selectedVideo = video;
     }
   }
 }
