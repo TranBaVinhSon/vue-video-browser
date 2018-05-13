@@ -1,6 +1,6 @@
 <template lang="html">
   <div>
-    <input @input="onInput" />
+    <input @input="onInput" placeholder="type here..." />
   </div>
 </template>
 
@@ -19,6 +19,8 @@ export default {
 <style lang="css" scoped>
   input {
     width: 75%;
+    padding: 10px;
+    border-radius: 5px;
   }
   div {
     text-align: center;
